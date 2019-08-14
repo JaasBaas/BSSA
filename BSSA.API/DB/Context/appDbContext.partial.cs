@@ -3,20 +3,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BSSA.API.DB.Context
 {
-     partial class appDbContext
+    partial class appDbContext
     {
-         public virtual DbSet<ProductIndex> ProductIndex { get; set; }
-       
+        public virtual DbSet<ProductIndex> ProductIndex { get; set; }
 
-       partial void OnModelCreatingPartial(ModelBuilder modelBuilder)
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProductIndex>(entity =>
             {
-                entity.HasKey(p=>p.ProductId);
+                entity.HasKey(p => p.ProductId);
 
                 entity.ToTable("ProductIndex", "dbo");
 
-                entity.Property(e => e.ManufacturerName)
+                entity.Property(e => e.BrandName)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -28,7 +28,7 @@ namespace BSSA.API.DB.Context
                     .HasMaxLength(50)
                     .IsUnicode(false);
             });
- 
-       }
+
+        }
     }
 }

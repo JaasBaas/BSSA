@@ -18,7 +18,7 @@
       "preLaunchTask": "build",
       "program": "${workspaceFolder}/BSSA.API/bin/Debug/netcoreapp3.0/BSSA.API.dll",
       "args": [],
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/BSSA.API",
       "stopAtEntry": false,
       "console": "internalConsole"
     },

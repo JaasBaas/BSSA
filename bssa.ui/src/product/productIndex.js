@@ -1,6 +1,6 @@
 // import React, { Component } from "./node_modules/react";
 import React, { Component } from "react";
-import api from "../axios/api";
+import * as api from "../api/product";
 
 export class productIndex extends Component {
   static displayName = productIndex.name;
@@ -12,9 +12,8 @@ export class productIndex extends Component {
 
   async getProductData() {
     try {
-      const response = await api.get("http://localhost:5000/api/values");
-      //const data = await response.json();
-      this.setState({ items: response.data, loading: false });
+      const data = await api.getProductIndexSearchResults("bix");
+      this.setState({ items: data, loading: false });
     } catch (error) {
       console.error(error);
     }
@@ -35,7 +34,7 @@ export class productIndex extends Component {
 
     return (
       <div>
-        <h1> Products </h1>
+        <h4> Products </h4>
         {contents}
       </div>
     );
@@ -46,8 +45,8 @@ export class productIndex extends Component {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th> Date </th> <th> Temp.(C) </th> <th> Temp.(F) </th>
-            <th> Summary </th>
+            <th> New </th>
+            <th> Product </th> <th> Brand </th> <th> Variations </th>
           </tr>
         </thead>
         <tbody>
@@ -59,10 +58,11 @@ export class productIndex extends Component {
             </tr>
           ))} */}
           {this.state.items.map((item, key) => (
-            <tr key={item.ProductId}>
-              <td> {item.ProductName} </td>
-              <td> {item.ManufacturerName} </td>
-              <td> {item.ProductVariationCount} </td> <td> </td>
+            <tr key={item.productId}>
+              <td> Buttons </td>
+              <td> {item.productName} </td>
+              <td> {item.brandName} </td>
+              <td> {item.productVariationCount} </td>
             </tr>
           ))}
         </tbody>
