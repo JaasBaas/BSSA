@@ -5,7 +5,7 @@ namespace BSSA.API.ViewModel
     public class ProductIndex
     {
         [Key]
-        public int? ProductId { get; set; }
+        public int ProductId { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "Product Name")]

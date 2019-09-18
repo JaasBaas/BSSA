@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using BSSA.API.DB.Context;
 
 namespace BSSA.API.DB.Service
@@ -9,9 +10,15 @@ namespace BSSA.API.DB.Service
         #region Constructor
         public DataService(appDbContext db)
         {
-            _db=db;
+            _db = db;
         }
-        
+
         #endregion
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            await _db.SaveChangesAsync();
+            return true;
+        }
     }
 }

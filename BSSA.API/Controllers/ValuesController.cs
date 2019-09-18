@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BSSA.API.Controllers
 {
+    /*
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -42,4 +43,5 @@ namespace BSSA.API.Controllers
         {
         }
     }
+ */
 }
