@@ -17,5 +17,7 @@
       "language": "typescriptreact",
       "autoFix": true
     }
-  ]
+  ],
+  "eslint.nodePath": "./bssa.web/node_modules",
+  "eslint.workingDirectories": ["bssa.web"]
 }

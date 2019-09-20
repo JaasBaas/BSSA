@@ -1,7 +1,7 @@
 import React from "react";
 import { InputGroup, InputGroupAddon, Input, Button, Container, Row, Col } from "reactstrap";
-import * as api from "../Api/ProductApi";
-import { ProductIndex } from "../Api/ViewModel/ProductIndex";
+import * as api from "../../api/productApi";
+import { ProductIndex } from "../../api/viewModel/productIndex";
 
 interface ProductSearchProps { }
 
@@ -73,14 +73,6 @@ export class ProductSearch extends React.Component<ProductSearchProps, ProductSe
       </Row>
     ));
   }
-
-  // newButtonClick() {
-  //     history.pushState(null, "", "./Product/Edit/0");
-  // }
-
-  // editButtonClick() {
-  //     history.pushState(null, "", "./Product/Edit/1");
-  // }
 
   renderCommands() {
     return (

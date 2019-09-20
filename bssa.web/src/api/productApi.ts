@@ -1,8 +1,8 @@
 //#region imports
 // import axios from "axios";
 import * as api from "./api";
-import { Product, emptyProduct } from "./ViewModel/Product";
-import { ProductIndex } from "./ViewModel/ProductIndex";
+import { Product, emptyProduct } from "./viewModel/product";
+import { ProductIndex } from "./viewModel/productIndex";
 //#endregion
 
 //#region Product API methods

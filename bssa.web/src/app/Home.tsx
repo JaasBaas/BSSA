@@ -6,8 +6,8 @@ export class Home extends React.Component {
 
         return (
             <div>
-                <h1>Hello!</h1>
-                <p>Welcome to your new single-page application, built with React</p>
+                <h1>Hello Bargain Shopper</h1>
+                <p></p>
             </div>
         )
     }

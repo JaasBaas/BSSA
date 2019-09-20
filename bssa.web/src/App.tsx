@@ -1,14 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
-import { Button } from 'reactstrap';
-import { Layout } from "./app/Layout";
 import { Route } from "react-router";
-import { Home } from "./app/Home";
-import { ProductSearch } from "./Product/ProductSearch";
-import { ProductEditPage } from './Product/ProductEditPage';
 
+import { Layout } from "./app/Layout";
+import { Home } from "./app/Home";
+import { ProductSearch } from "./pages/product/productSearch";
+import { ProductEditPage } from './pages/product/productEditPage';
+ 
 const App: React.FC = () => {
   return (
     <div className="App">
@@ -16,7 +15,7 @@ const App: React.FC = () => {
         <Route exact path="/" component={Home} />
         <Route exact path="/Product/Search" component={ProductSearch} />
         <Route exact path="/Product/Edit/:id" component={ProductEditPage} />
-      </Layout>
+        </Layout>
     </div>
   );
 }

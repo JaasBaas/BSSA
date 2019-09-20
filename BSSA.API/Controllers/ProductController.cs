@@ -50,11 +50,11 @@ namespace BSSA.API.Controllers
         }
 
         [HttpPost("UpdateProduct")]
-        public async Task<bool> UpdateProductAsync([FromBody] vm.Product product)
+        public async Task UpdateProductAsync([FromBody] vm.Product product)
         {
             var entity = await _ds.SelectProductAsync(product.ProductId);
             _mapper.Map(product, entity);
-            return await _ds.SaveChangesAsync();
+            await _ds.SaveChangesAsync();
         }
 
         /*

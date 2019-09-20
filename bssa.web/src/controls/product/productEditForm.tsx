@@ -4,8 +4,8 @@ import {
   Button,
   Form
 } from "reactstrap";
-import * as api from "../Api/ProductApi";
-import { Product, emptyProduct } from "../Api/ViewModel/Product";
+import * as api from "../../api/productApi"; 
+import { Product, emptyProduct } from "../../api/viewModel/product";
 
 /**ProductEditForm Properties */
 interface _props {

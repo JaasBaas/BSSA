@@ -1,9 +1,9 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
-import { ProductEditForm } from "./ProductEditForm";
+import { ProductEditForm } from "../../controls/product/productEditForm";
 import { RouteComponentProps } from "react-router-dom";
-import { ProductVariationCrud } from "./ProductVariationList";
-import { ProductTagsCrud } from "./ProductTagsCrud";
+import { ProductVariationCrud } from "../../controls/product/productVariationList";
+import { ProductTagsCrud } from "../../controls/product/productTagsCrud";
 
 interface _props {
   productId: number;
@@ -51,7 +51,6 @@ export class ProductEditPage extends React.Component<_props & RouteComponentProp
         </Col>
         <div className="w-100" />
         <Col>{this._renderProductTags()}</Col>
-
       </Row>
     );
   }

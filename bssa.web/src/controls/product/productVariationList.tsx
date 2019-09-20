@@ -1,5 +1,5 @@
 import React from "react";
-import * as api from "../Api/ProductApi";
+import * as api from "../../api/productApi";
 import { Table, Row, Col, InputGroup, Input, Button } from "reactstrap";
 
 /**ProductEditForm Properties */
