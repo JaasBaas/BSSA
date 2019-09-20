@@ -1,6 +1,6 @@
 import React from "react";
 import * as api from "../../api/productApi";
-import { Table, Row, Col, InputGroup, Input, Button } from "reactstrap";
+// import { Table, Row, Col, InputGroup, Input, Button } from "reactstrap";
 
 /**ProductTagsCrud Properties */
 interface _props {
