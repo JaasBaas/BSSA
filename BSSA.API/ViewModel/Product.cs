@@ -5,6 +5,7 @@ namespace BSSA.API.ViewModel
     public class Product
     {
         [Key]
+        [Required()]
         public int ProductId { get; set; }
 
         [Required(AllowEmptyStrings = false)]
@@ -13,6 +14,6 @@ namespace BSSA.API.ViewModel
 
         [Display(Name = "Brand")]
         [Required()]
-        public int? BrandId { get; set; }
+        public int BrandId { get; set; }
     }
 }

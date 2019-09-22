@@ -19,5 +19,8 @@
     }
   ],
   "eslint.nodePath": "./bssa.web/node_modules",
-  "eslint.workingDirectories": ["bssa.web"]
+  "eslint.workingDirectories": [
+    "bssa.web"
+  ],
+  "editor.formatOnSave": true
 }

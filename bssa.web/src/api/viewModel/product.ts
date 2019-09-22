@@ -1,11 +1,11 @@
 export interface Product {
-  productId: number | null;
+  productId: number;
   name: string;
-  brandId: number | null;
+  brandId: number;
 }
 
 export const emptyProduct = (): Product => ({
   productId: 0,
   brandId: 0,
-  name: ""
+  name: ''
 });

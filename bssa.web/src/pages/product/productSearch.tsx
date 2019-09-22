@@ -12,7 +12,7 @@ import {
 import * as api from '../../api/productApi';
 import { ProductIndex } from '../../api/viewModel/productIndex';
 
-interface ProductSearchProps { }
+interface ProductSearchProps {}
 
 interface ProductSearchState {
   isLoading: boolean;
@@ -23,7 +23,7 @@ interface ProductSearchState {
 export class ProductSearch extends React.Component<
   ProductSearchProps,
   ProductSearchState
-  > {
+> {
   constructor(props: Readonly<ProductSearchProps>) {
     super(props);
     this.state = { items: [], isLoading: false, searchCriteria: '' };
@@ -37,35 +37,35 @@ export class ProductSearch extends React.Component<
         <em> Loading... </em>
       </p>
     ) : (
-        ProductSearch.renderSearchResults(this.state.items)
-      );
+      ProductSearch.renderSearchResults(this.state.items)
+    );
 
     return (
       <Container>
         <Row>
-          <Col sm='1'>
-                <a href="./Edit/0">
-                  <img
-                    src="/icons/icons8-add-32.png"
-                    alt="Add"
-                    width="20"
-                  ></img>
-                </a>
-            
+          <Col sm="1">
+            <a href="./Edit/0">
+              <img src="/icons/icons8-add-32.png" alt="Add" width="20"></img>
+            </a>
           </Col>
-          <Col><h5>Product Search</h5></Col>
           <Col>
-            <InputGroup> 
+            <h5>Product Search</h5>
+          </Col>
+          <Col>
+            <InputGroup>
               <Input
                 placeholder="Enter some search criteria  here"
                 defaultValue={this.state.searchCriteria}
-                onChange={this._handleUserInputChange} 
+                onChange={this._handleUserInputChange}
               />
               <InputGroupAddon addonType="append">
-                <Button color="primary" onClick={this.searchButtonClick} size='sm'>
-                <img src='/icons/icons8-search-32.png' width='20'/> 
-                                </Button>
-                
+                <Button
+                  color="primary"
+                  onClick={this.searchButtonClick}
+                  size="sm"
+                >
+                  <img src="/icons/icons8-search-32.png" width="20" />
+                </Button>
               </InputGroupAddon>
             </InputGroup>
           </Col>
