@@ -1,97 +1,143 @@
-import React from "react";
-import * as api from "../../api/productApi";
-import { Table, Row, Col, InputGroup, Input, Button } from "reactstrap";
+import React from 'react';
+import * as api from '../../api/productApi';
+import { Row, Col, InputGroup, Input, Button, Container } from 'reactstrap';
+import { productVariationListItem } from '../../api/viewModel/productVariationListItem';
+import { productVariation } from '../../api/viewModel/productVariation';
+import { measureUnitLookup } from '../../api/viewModel/measureUnitLookup';
+import * as measureUnitApi from '../../api/measureUnitApi';
 
-/**ProductEditForm Properties */
 interface _props {
-  /**Product ID route parameter */
   productId: number;
 }
 
-/**ProductEditForm State Definition */
 interface _state {
   isBusy: boolean;
-  items: api.ProductVarianceIndex[];
-  newItem: api.ProductVariance;
+  items: productVariationListItem[];
+  newItem: productVariation;
+  measureLookupData: measureUnitLookup[];
 }
 
 export class ProductVariationCrud extends React.Component<_props, _state> {
   _initialState = (props: _props): _state => ({
     isBusy: true,
     items: [],
-    newItem: api.emptyProductVariance()
+    newItem: api.emptyProductVariation(this.props.productId),
+    measureLookupData: []
   });
 
   state = this._initialState(this.props);
 
+  componentDidMount() {
+    api.GetProductVariations(this.props.productId).then(r => {
+      this.setState(s => ({ items: r.data }));
+    });
+
+    measureUnitApi.GetLookup().then(r => {
+      this.setState(s => ({ measureLookupData: r.data }));
+    });
+  }
+
   render() {
     return (
-      <Table>
-        {this._renderList()}
+      <Container>
+        <Row key="header">
+          <Col>
+            <h5>Product Variations</h5>
+            <hr className="mt-2" />
+          </Col>
+        </Row>
+        <Row key="1">{this._renderList()}</Row>
+
         {this._renderAdd()}
-      </Table>
+      </Container>
     );
   }
 
   _renderList() {
     return this.state.items.map(i => (
-      <Row>
-        <Col>
-          {i.Measure} {i.MeasureUnit} {i.VarianceName}
-        </Col>
-      </Row>
+      <Col key={i.productVariationId}>
+        {i.measure} {i.measureUnitAbbr} {i.variationName}
+      </Col>
     ));
   }
 
   _renderAdd() {
     return (
-      <React.Fragment>
-        <Row><Col><h5>Product Variations</h5><hr className="mt-2" /></Col></Row>
-        <Row>
-          <Col>
-            <InputGroup>
-              <Input
-                id="Measure"
-                type="text"
-                placeholder="e.g. 500"
-                onChange={this._handleUserInputChange}
-                defaultValue={(this.state.newItem.Measure || '').toString()}
-              />
-              <Input
-                type="select"
-                id="MeasureUnitId"
-                defaultValue={(this.state.newItem.MeasureUnitId || '').toString()}
-                onChange={this._handleUserInputChange}
-                placeholder="e.g. ggg"
-              >
-                <option value="">e.g. gram (g)</option>
-                <option value="1">gram (g)</option>
-                <option value="2">kilogram (kg)</option>
-                <option>each</option>
-                <option>litre (l)</option>
-                <option>millilitre (ml)</option>
-                <option>six-pack</option>
-              </Input>
-              <Input
-                id="VarianceName"
-                type="text"
-                placeholder="optional description"
-                onChange={this._handleUserInputChange}
-                defaultValue={this.state.newItem.VarianceName}
-              />
-              <Button onClick={this._createNewProductVariation}>Create</Button>
-            </InputGroup>
-          </Col>
-        </Row>
-      </React.Fragment>
+      <Row key="add">
+        <Col>
+          <InputGroup>
+            <Input
+              id="Measure"
+              type="text"
+              placeholder="e.g. 500"
+              onChange={this._handleMeasureChange}
+              defaultValue={(this.state.newItem.measure || '').toString()}
+            />
+            <Input
+              type="select"
+              id="MeasureUnitId"
+              defaultValue={(this.state.newItem.measureUnitId || '').toString()}
+              onChange={this._handleMeasureUnitChange}
+              placeholder="e.g. gram"
+            >
+              {this._renderMeasureUnitLookupDefaultOption()}
+              {this._renderMeasureUnitLookupOptions()}
+            </Input>
+            <Input
+              id="VarianceName"
+              type="text"
+              placeholder="optional description"
+              onChange={this._handleDescriptionChange}
+              defaultValue={this.state.newItem.variationName}
+            />
+            <Button onClick={this._createNewProductVariation}>Create</Button>
+          </InputGroup>
+        </Col>
+      </Row>
     );
   }
 
-  _handleUserInputChange = e => {
-    return this.setState({ newItem: { ...this.state.newItem, [e.target.name]: e.target.value } });
+  _renderMeasureUnitLookupDefaultOption() {
+    if (this.state.newItem.measureUnitId === 0)
+      return (
+        <option key="measureUnitId0" selected disabled hidden>
+          e.g. gram
+        </option>
+      );
+  }
+  _renderMeasureUnitLookupOptions() {
+    return this.state.measureLookupData.map((item, key) => (
+      <option key={item.measureUnitId} value={item.measureUnitId.toString()}>
+        {item.measureUnitDisplay}
+      </option>
+    ));
+  }
+
+  _handleMeasureChange = e => {
+    this.setState({
+      newItem: { ...this.state.newItem, measure: Number(e.target.value) }
+    });
+  };
+  _handleMeasureUnitChange = e => {
+    this.setState({
+      newItem: { ...this.state.newItem, measureUnitId: Number(e.target.value) }
+    });
+  };
+  _handleDescriptionChange = e => {
+    this.setState({
+      newItem: { ...this.state.newItem, variationName: e.target.value }
+    });
   };
 
   _createNewProductVariation = () => {
     var ni = this.state.newItem;
+    api.InsertProductVariationAndReturnListItem(ni).then(r => {
+      const newList = this.state.items;
+      newList.push(r.data);
+      this.setState(s => ({
+        items: newList,
+        newItem: api.emptyProductVariation(this.props.productId)
+      }));
+    });
   };
 }

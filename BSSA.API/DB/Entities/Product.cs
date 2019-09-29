@@ -7,6 +7,7 @@ namespace BSSA.API.DB.Entities
     {
         public Product()
         {
+            ProductTag = new HashSet<ProductTag>();
             ProductVariation = new HashSet<ProductVariation>();
         }
 
@@ -15,6 +16,7 @@ namespace BSSA.API.DB.Entities
         public int BrandId { get; set; }
 
         public virtual Brand Brand { get; set; }
+        public virtual ICollection<ProductTag> ProductTag { get; set; }
         public virtual ICollection<ProductVariation> ProductVariation { get; set; }
     }
 }

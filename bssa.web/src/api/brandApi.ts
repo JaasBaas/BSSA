@@ -4,5 +4,5 @@ import { brand } from './viewModel/brand';
 //#endregion
 
 export async function GetLookup() {
-  return await api.bsApi.get<brand[]>(`/Brand/Lookup`);
+  return await api.bsApi.get<brand[]>(`/api/Brand/Lookup`);
 }

@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
 export const bsApi = axios.create({
-  baseURL: "https://localhost:5001/api/"
+  baseURL: 'https://localhost:5001/'
 });
 
 /**
@@ -34,7 +34,7 @@ export interface apiCreateUpdateResult extends apiResult {
  */
 export const defaultApiResult = (): apiResult => ({
   success: false,
-  errorMsg: ""
+  errorMsg: ''
 });
 
 // export default axios.create({
@@ -55,7 +55,7 @@ export function HandleApiRequestError(error: any) {
     console.log(error.request);
   } else {
     // Something happened in setting up the request that triggered an Error
-    console.log("Error", error.message);
+    console.log('Error', error.message);
   }
   console.log(error.config);
 }

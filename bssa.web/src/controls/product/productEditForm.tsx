@@ -1,9 +1,9 @@
 import React from 'react';
 import { Input, Button, Form, Spinner } from 'reactstrap';
 import * as api from '../../api/productApi';
-import { Product, emptyProduct } from '../../api/viewModel/product';
 import { brand } from '../../api/viewModel/brand';
 import * as brandApi from '../../api/brandApi';
+import { product } from '../../api/viewModel/product';
 
 /**ProductEditForm Properties */
 interface _props {
@@ -19,7 +19,7 @@ interface _state {
   isLoading: boolean;
   isSuccess: boolean;
   productId: number;
-  product: Product;
+  product: product;
   brands: brand[];
 }
 
@@ -28,7 +28,7 @@ export class ProductEditForm extends React.Component<_props, _state> {
     isLoading: props.productId !== 0,
     isSuccess: false,
     productId: props.productId,
-    product: emptyProduct(),
+    product: api.emptyProduct(),
     brands: []
   });
 

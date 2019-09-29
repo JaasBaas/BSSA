@@ -19,7 +19,10 @@ namespace BSSA.API.DB.Context
         public virtual DbSet<Brand> Brand { get; set; }
         public virtual DbSet<MeasureUnit> MeasureUnit { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<ProductTag> ProductTag { get; set; }
         public virtual DbSet<ProductVariation> ProductVariation { get; set; }
+        public virtual DbSet<Tag> Tag { get; set; }
+        public virtual DbSet<TagCategory> TagCategory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,7 +42,7 @@ namespace BSSA.API.DB.Context
 
             modelBuilder.Entity<MeasureUnit>(entity =>
             {
-                entity.HasIndex(e => e.MeasureUnit1)
+                entity.HasIndex(e => e.MeasureUnitName)
                     .IsUnique();
 
                 entity.HasIndex(e => e.MeasureUnitAbbr)
@@ -47,9 +50,9 @@ namespace BSSA.API.DB.Context
 
                 entity.Property(e => e.MeasureUnitId).HasColumnName("MeasureUnitID");
 
-                entity.Property(e => e.MeasureUnit1)
+                entity.Property(e => e.MeasureUnitName)
                     .IsRequired()
-                    .HasColumnName("MeasureUnit")
+                    .HasColumnName("MeasureUnitName")
                     .HasMaxLength(15)
                     .IsUnicode(false);
 
@@ -75,6 +78,27 @@ namespace BSSA.API.DB.Context
                     .HasForeignKey(d => d.BrandId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Product_Manufacturer");
+            });
+
+            modelBuilder.Entity<ProductTag>(entity =>
+            {
+                entity.HasKey(e => new { e.ProductId, e.TagId });
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.TagId).HasColumnName("TagID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.ProductTag)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductTag_Product");
+
+                entity.HasOne(d => d.Tag)
+                    .WithMany(p => p.ProductTag)
+                    .HasForeignKey(d => d.TagId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ProductTag_Tag");
             });
 
             modelBuilder.Entity<ProductVariation>(entity =>
@@ -103,6 +127,40 @@ namespace BSSA.API.DB.Context
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ProductVariation_Product");
+            });
+
+            modelBuilder.Entity<Tag>(entity =>
+            {
+                entity.HasIndex(e => e.TagName)
+                    .IsUnique();
+
+                entity.Property(e => e.TagId).HasColumnName("TagID");
+
+                entity.Property(e => e.TagCategoryId).HasColumnName("TagCategoryID");
+
+                entity.Property(e => e.TagName)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.TagCategory)
+                    .WithMany(p => p.Tag)
+                    .HasForeignKey(d => d.TagCategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tag_TagCategory");
+            });
+
+            modelBuilder.Entity<TagCategory>(entity =>
+            {
+                entity.HasIndex(e => e.TagCategoryName)
+                    .IsUnique();
+
+                entity.Property(e => e.TagCategoryId).HasColumnName("TagCategoryID");
+
+                entity.Property(e => e.TagCategoryName)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);

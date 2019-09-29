@@ -25,6 +25,7 @@ namespace BSSA.API.Controllers
         }
         #endregion
 
+        #region Product Search
         // GET api/SearchResults
         [HttpGet("SearchResults/{criteria}")]
         public async Task<List<vm.ProductIndex>> GetSearchResultsAsync(string criteria)
@@ -32,7 +33,9 @@ namespace BSSA.API.Controllers
             var data = await _ds.SelectProductsAsync(criteria);
             return _mapper.Map<List<vm.ProductIndex>>(data);
         }
+        #endregion
 
+        #region Product
         // GET api/product/5
         [HttpGet("{id}")]
         public async Task<vm.Product> GetProductAsync(int id)
@@ -56,6 +59,70 @@ namespace BSSA.API.Controllers
             _mapper.Map(product, entity);
             await _ds.SaveChangesAsync();
         }
+        #endregion
+
+        #region Product Variation
+        [HttpGet("ProductVariations/{productId}")]
+        public async Task<List<vm.ProductVariationListItem>> GetProductVariations(int productId)
+        {
+            var items = await _ds.SelectProductVariations(productId);
+            return _mapper.Map<List<vm.ProductVariationListItem>>(items);
+        }
+
+        [HttpGet("ProductVariationListItem/{productVariationId}")]
+        public async Task<vm.ProductVariationListItem> GetProductVariationListItem(int productVariationId)
+        {
+            var items = await _ds.SelectProductVariation(productVariationId);
+            return _mapper.Map<vm.ProductVariationListItem>(items);
+        }
+
+        [HttpPost("InsertProductVariation")]
+        public async Task<int> InsertProductVariationAsync([FromBody] vm.ProductVariation productVariation)
+        {
+            var entity = _mapper.Map<db.ProductVariation>(productVariation);
+            var key = await _ds.InsertProductVariationAsync(entity);
+            return key;
+        }
+
+        [HttpPost("InsertProductVariationAndReturnListItem")]
+        public async Task<vm.ProductVariationListItem> InsertProductVariationAndReturnListItem([FromBody] vm.ProductVariation productVariation)
+        {
+            var key = await InsertProductVariationAsync(productVariation);
+            return await GetProductVariationListItem(key);
+        }
+        #endregion
+
+        #region Product Tag
+        [HttpGet("ProductTags/{productId}")]
+        public async Task<List<vm.ProductTagListItem>> GetProductTags(int productId)
+        {
+            var items = await _ds.SelectProductTags(productId);
+            return _mapper.Map<List<vm.ProductTagListItem>>(items);
+        }
+
+        [HttpPost("InsertProductTag")]
+        public async Task<bool> InsertProductTagAsync([FromBody] vm.ProductTag productTag)
+        {
+            var entity = _mapper.Map<db.ProductTag>(productTag);
+            await _ds.InsertProductTag(entity);
+            return true;
+        }
+
+        [HttpDelete("DeleteProductTag")]
+        public async Task<bool> DeleteProductTagAsync([FromBody] vm.ProductTag productTag)
+        {
+            var entity = _mapper.Map<db.ProductTag>(productTag);
+            await _ds.InsertProductTag(entity);
+            return true;
+        }
+
+        [HttpDelete("DeleteProductTagById/{productId}/{tagId}")]
+        public async Task<bool> DeleteProductTagAsync(int productId, int tagId)
+        {
+            await _ds.DeleteProductTag(productId, tagId);
+            return true;
+        }
+        #endregion
 
         /*
         // POST api/values

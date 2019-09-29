@@ -5,6 +5,7 @@ namespace BSSA.API.ViewModel
     public class Brand
     {
         [Key]
+        [Required]
         public int BrandId { get; set; }
 
         [Required(AllowEmptyStrings = false)]

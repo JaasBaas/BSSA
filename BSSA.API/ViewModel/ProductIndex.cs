@@ -5,6 +5,7 @@ namespace BSSA.API.ViewModel
     public class ProductIndex
     {
         [Key]
+        [Required()]
         public int ProductId { get; set; }
 
         [Required(AllowEmptyStrings = false)]

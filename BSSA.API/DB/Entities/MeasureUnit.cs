@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace BSSA.API.DB.Entities
@@ -11,7 +11,7 @@ namespace BSSA.API.DB.Entities
         }
 
         public int MeasureUnitId { get; set; }
-        public string MeasureUnit1 { get; set; }
+        public string MeasureUnitName { get; set; }
         public string MeasureUnitAbbr { get; set; }
 
         public virtual ICollection<ProductVariation> ProductVariation { get; set; }

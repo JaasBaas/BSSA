@@ -10,14 +10,14 @@ import {
 } from 'reactstrap';
 
 import * as api from '../../api/productApi';
-import { ProductIndex } from '../../api/viewModel/productIndex';
+import { productIndex } from '../../api/viewModel/productIndex';
 
 interface ProductSearchProps {}
 
 interface ProductSearchState {
   isLoading: boolean;
   searchCriteria: string;
-  items: ProductIndex[];
+  items: productIndex[];
 }
 
 export class ProductSearch extends React.Component<
@@ -64,7 +64,11 @@ export class ProductSearch extends React.Component<
                   onClick={this.searchButtonClick}
                   size="sm"
                 >
-                  <img src="/icons/icons8-search-32.png" width="20" />
+                  <img
+                    src="/icons/icons8-search-32.png"
+                    width="20"
+                    alt="search"
+                  />
                 </Button>
               </InputGroupAddon>
             </InputGroup>
@@ -88,7 +92,7 @@ export class ProductSearch extends React.Component<
     });
   }
 
-  static renderSearchResults(items: ProductIndex[]) {
+  static renderSearchResults(items: productIndex[]) {
     return items.map(i => (
       <Row key={i.productId}>
         <Col sm="1">
