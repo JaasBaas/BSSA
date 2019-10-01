@@ -72,7 +72,7 @@ export async function InsertProductVariationAndReturnListItem(
 //#region Product Tags
 export async function GetProductTags(productId: number) {
   return await api.bsApi.get<productTagListItem[]>(
-    `/api/product/ProductTags/${productId}`
+    `/api/product/${productId}/ProductTags`
   );
 }
 

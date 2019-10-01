@@ -93,7 +93,7 @@ namespace BSSA.API.Controllers
         #endregion
 
         #region Product Tag
-        [HttpGet("ProductTags/{productId}")]
+        [HttpGet("{productId}/ProductTags")]
         public async Task<List<vm.ProductTagListItem>> GetProductTags(int productId)
         {
             var items = await _ds.SelectProductTags(productId);
@@ -116,7 +116,7 @@ namespace BSSA.API.Controllers
             return true;
         }
 
-        [HttpDelete("DeleteProductTagById/{productId}/{tagId}")]
+        [HttpDelete("{productId}/DeleteTag/{tagId}")]
         public async Task<bool> DeleteProductTagAsync(int productId, int tagId)
         {
             await _ds.DeleteProductTag(productId, tagId);

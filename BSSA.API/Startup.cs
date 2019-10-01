@@ -28,15 +28,24 @@ namespace BSSA.API
         }
 
         public IConfiguration Configuration { get; }
+        //readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddCors(c =>  
-            // {  
-            //     c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());  
-            // });
-            services.AddCors();
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+            // services.AddCors(options =>
+            //       {
+            //           options.AddPolicy(MyAllowSpecificOrigins,
+            //           builder =>
+            //           {
+            //               builder.WithOrigins("http://localhost:3000");
+            //           });
+            //       });
+
             services.AddControllers();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -55,12 +64,6 @@ namespace BSSA.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors(b =>
-                b.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                // .AllowCredentials()
-                );
 
             if (env.IsDevelopment())
             {
@@ -77,6 +80,13 @@ namespace BSSA.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(b =>
+                b.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                // .AllowCredentials()
+                );
 
             app.UseAuthorization();
 
