@@ -108,6 +108,26 @@ namespace BSSA.API.Controllers
             return true;
         }
 
+        [HttpPost("{productId}/InsertProductTag/{tagName}")]
+        public async Task<int> InsertProductTagAsync(int productId, string tagName)
+        {
+            var existing = await _ds.SelectTag(tagName);
+            if (existing == null)
+            {
+                existing = new db.Tag() { TagName = tagName, TagCategoryId = -2 };
+                await _ds.InsertTag(existing);
+            }
+
+            var pt = new db.ProductTag()
+            {
+                ProductId = productId,
+                Tag = existing
+            };
+            await _ds.InsertProductTag(pt);
+
+            return pt.TagId;
+        }
+
         [HttpDelete("DeleteProductTag")]
         public async Task<bool> DeleteProductTagAsync([FromBody] vm.ProductTag productTag)
         {

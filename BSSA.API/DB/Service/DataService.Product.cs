@@ -91,5 +91,21 @@ namespace BSSA.API.DB.Service
             await _db.SaveChangesAsync();
         }
         #endregion
+
+        #region Tag
+        public async Task<Tag> SelectTag(string tagName)
+        {
+            return await (from o in _db.Tag
+                          where o.TagName.ToUpper() == tagName.ToUpper()
+                          select o).SingleOrDefaultAsync();
+        }
+        public async Task InsertTag(Tag entity)
+        {
+            _db.Add(entity);
+            await _db.SaveChangesAsync();
+        }
+
+
+        #endregion
     }
 }

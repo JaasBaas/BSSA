@@ -83,6 +83,12 @@ export async function InsertProductTag(productTag: productTag) {
   );
 }
 
+export async function InsertProductTagName(productId: number, tagName: string) {
+  return await api.bsApi.post<number>(
+    `/api/product/${productId}/InsertProductTag/${tagName}`
+  );
+}
+
 export const emptyProductTag = (): productTag => ({
   productId: 0,
   tagId: 0
