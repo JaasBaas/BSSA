@@ -66,20 +66,32 @@ export class ProductTagsCrud extends React.Component<_props, _state> {
     return x;
   }
   renderTag(tag: productTagListItem) {
-    return (
-      <span
-        key={`tag${tag.tagId}`}
-        className="border rounded p-1 mr-2 mb-2 d-inline-block"
-      >
-        <Input type="checkbox" className="ml-1 mr-1 position-relative"></Input>
-        {tag.tagName}
-        <img
-          src="/icons/icons8-delete-bin-red-32.png"
-          alt="Delete"
-          width="20"
-        ></img>
-      </span>
-    );
+    if (tag) {
+      return (
+        <span
+          key={`tag${tag.tagId}`}
+          className="border rounded p-0 pl-2 mr-2 mb-2 d-inline-block"
+        >
+          {/* <Input
+            type="checkbox"
+            className="ml-1 mr-1 position-relative"
+          ></Input> */}
+          {tag.tagName}
+          <Button
+            value={tag.tagId.toString()}
+            onClick={this.deleteTag}
+            size="sm"
+            color=""
+          >
+            <img
+              src="/icons/icons8-delete-bin-red-32.png"
+              alt="Delete"
+              width="20"
+            />
+          </Button>
+        </span>
+      );
+    }
   }
 
   renderNewTag() {
@@ -131,4 +143,21 @@ export class ProductTagsCrud extends React.Component<_props, _state> {
       console.log('createNewTag.newTagName = ""');
     });
   }
+
+  deleteTag = (event: React.MouseEvent<any, MouseEvent>) => {
+    event.preventDefault();
+    const tagId = Number(event.currentTarget.value);
+    const productId = this.props.productId;
+    console.log(`Deleting tag id ${tagId}`);
+
+    api.DeleteProductTag(productId, tagId).then(r => {
+      console.log(`Tag id ${tagId} deleted.  Updating UI.`);
+      const array = this.state.items;
+      const item = array.filter(e => e.tagId === tagId)[0];
+      const index = array.indexOf(item);
+      array.splice(index, 1);
+      this.setState({ items: array });
+      console.log(`Tag id ${tagId} removed from UI.`);
+    });
+  };
 }

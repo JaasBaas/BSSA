@@ -96,7 +96,7 @@ export const emptyProductTag = (): productTag => ({
 
 export async function DeleteProductTag(productId: number, tagId: number) {
   return await api.bsApi.delete<boolean>(
-    `/api/product/DeleteProductTagById/${productId}/${tagId}`
+    `/api/product/${productId}/DeleteTag/${tagId}`
   );
 }
 //#endregion
