@@ -42,7 +42,7 @@ export class ProductVariationCrud extends React.Component<_props, _state> {
       <Container>
         <Row key="header">
           <Col>
-            <h5>Product Variations</h5>
+            <h1>Product Variations</h1>
             <hr className="mt-2" />
           </Col>
         </Row>

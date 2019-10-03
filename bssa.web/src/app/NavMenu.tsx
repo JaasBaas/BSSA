@@ -1,9 +1,17 @@
 import React from 'react';
 import './NavMenu.css';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import {
+  Collapse,
+  Container,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+  NavItem,
+  NavLink
+} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-interface NavMenuProps { };
+interface NavMenuProps {}
 
 interface NavMenuState {
   collapsed: Boolean;
@@ -30,20 +38,32 @@ export class NavMenu extends React.Component<NavMenuProps, NavMenuState> {
   render() {
     return (
       <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
+        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3">
           <Container>
-            <NavbarBrand tag={Link} to="/">Bargain Shopper</NavbarBrand>
+            <NavbarBrand tag={Link} to="/">
+              Bargain Shopper
+            </NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+            <Collapse
+              className="d-sm-inline-flex flex-sm-row-reverse"
+              isOpen={!this.state.collapsed}
+              navbar
+            >
               <ul className="navbar-nav flex-grow">
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                  <NavLink tag={Link} to="/">
+                    Home
+                  </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/Product/Search">Products</NavLink>
+                  <NavLink tag={Link} to="/Product/Search">
+                    Products
+                  </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
+                  <NavLink tag={Link} to="/fetch-data">
+                    Fetch data
+                  </NavLink>
                 </NavItem>
               </ul>
             </Collapse>

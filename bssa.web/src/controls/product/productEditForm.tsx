@@ -49,7 +49,7 @@ export class ProductEditForm extends React.Component<_props, _state> {
   render() {
     return (
       <React.Fragment>
-        <h5>Product Detail</h5>
+        <h1>Product Detail</h1>
         <hr className="mt-0" />
 
         {this.state.isLoading ? this.renderSpinner() : this._renderForm()}

@@ -52,7 +52,7 @@ export class ProductTagsCrud extends React.Component<_props, _state> {
   render() {
     return (
       <React.Fragment>
-        <h5>Product Tags</h5>
+        <h1>Product Tags</h1>
         <hr className="mt-0" />
         <span>{this.renderTags()}</span>
         <span>{this.renderNewTag()}</span>
@@ -74,7 +74,7 @@ export class ProductTagsCrud extends React.Component<_props, _state> {
         <Input type="checkbox" className="ml-1 mr-1 position-relative"></Input>
         {tag.tagName}
         <img
-          src="/icons/icons8-delete-bin-32.png"
+          src="/icons/icons8-delete-bin-red-32.png"
           alt="Delete"
           width="20"
         ></img>
