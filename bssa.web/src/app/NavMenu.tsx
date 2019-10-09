@@ -61,8 +61,8 @@ export class NavMenu extends React.Component<NavMenuProps, NavMenuState> {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to="/fetch-data">
-                    Fetch data
+                  <NavLink tag={Link} to="/TestPage">
+                    Test
                   </NavLink>
                 </NavItem>
               </ul>
