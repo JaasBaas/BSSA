@@ -34,3 +34,7 @@ hr {
   border-left:1px solid #007053 !important
  }
  
+ .invalid-input{
+   color: red;
+   font-size: 80%;
+ }
