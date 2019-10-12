@@ -28,7 +28,7 @@ export class ProductSearch extends React.Component<
     super(props);
     this.state = { items: [], isLoading: false, searchCriteria: '' };
 
-    this.searchButtonClick = this.searchButtonClick.bind(this);
+    this.searchFormSubmit = this.searchFormSubmit.bind(this);
   }
 
   render() {
@@ -52,30 +52,28 @@ export class ProductSearch extends React.Component<
             <h5>Product Search</h5>
           </Col>
           <Col>
-            <InputGroup>
-              <Input
-                placeholder="Enter some search criteria  here"
-                defaultValue={this.state.searchCriteria}
-                onChange={this._handleUserInputChange}
-              />
-              <InputGroupAddon addonType="append">
-                <Button
-                  color="primary"
-                  onClick={this.searchButtonClick}
-                  size="sm"
-                >
-                  <img
-                    src="/icons/icons8-search-32.png"
-                    width="20"
-                    alt="search"
-                  />
-                </Button>
-              </InputGroupAddon>
-            </InputGroup>
+            <form onSubmit={this.searchFormSubmit}>
+              <InputGroup>
+                <Input
+                  placeholder="Enter some search criteria  here"
+                  defaultValue={this.state.searchCriteria}
+                  onChange={this._handleUserInputChange}
+                />
+                <InputGroupAddon addonType="append">
+                  <Button color="" size="sm" type="submit">
+                    <img
+                      src="/icons/icons8-search-32.png"
+                      width="20"
+                      alt="search"
+                    />
+                  </Button>
+                </InputGroupAddon>
+              </InputGroup>
+            </form>
           </Col>
         </Row>
+        <hr className="mt-2" />
         {contents}
-        {/* {this.renderCommands()} */}
       </Container>
     );
   }
@@ -84,7 +82,9 @@ export class ProductSearch extends React.Component<
     this.setState({ searchCriteria: e.target.value });
   };
 
-  searchButtonClick() {
+  searchFormSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
     this.setState(s => ({ isLoading: true, items: [] }));
 
     api.GetProductSearchResults(this.state.searchCriteria).then(d => {
@@ -102,18 +102,7 @@ export class ProductSearch extends React.Component<
         </Col>
         <Col>{i.brandName}</Col>
         <Col>{i.productName}</Col>
-        {/* <Col><a href={`./Delete/${i.productId}`}><img src='/icons/icons8-delete-bin-32.png' alt='Delete' width="20"></img></a></Col> */}
       </Row>
     ));
   }
-
-  // renderCommands() {
-  //   return (
-  //     <Row>
-  //       <Col>
-  //         <a href="./Edit/0">New</a>{' '}
-  //       </Col>
-  //     </Row>
-  //   );
-  // }
 }
