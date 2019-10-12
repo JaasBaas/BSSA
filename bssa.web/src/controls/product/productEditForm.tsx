@@ -1,9 +1,11 @@
-import React from 'react';
-import { Input, Button, Form, Spinner } from 'reactstrap';
+import React, { useState, useEffect } from 'react';
+import { Input, Button, Form, Spinner, FormGroup } from 'reactstrap';
 import * as api from '../../api/productApi';
 import { brand } from '../../api/viewModel/brand';
 import * as brandApi from '../../api/brandApi';
 import { product } from '../../api/viewModel/product';
+import useForm from 'react-hook-form';
+import { async } from 'q';
 
 /**ProductEditForm Properties */
 interface _props {
@@ -23,79 +25,96 @@ interface _state {
   brands: brand[];
 }
 
-export class ProductEditForm extends React.Component<_props, _state> {
-  _initialState = (props: _props): _state => ({
+export default function ProductEditForm(props: _props) {
+  const _initialState: _state = {
     isLoading: props.productId !== 0,
     isSuccess: false,
     productId: props.productId,
     product: api.emptyProduct(),
     brands: []
-  });
+  };
 
-  state = this._initialState(this.props);
+  const [state, setState] = useState(_initialState);
 
-  componentDidMount() {
-    brandApi.GetLookup().then(r => {
-      this.setState(s => ({ brands: r.data }));
+  function updateState(vals) {
+    setState(prevState => {
+      return { ...prevState, ...vals };
     });
+  }
 
-    if (this.state.productId !== 0)
-      api.GetProduct(this.state.productId).then(r => {
-        this.setState(s => ({ isLoading: false, product: r.data }));
+  const { register, handleSubmit, errors } = useForm();
+
+  //componentDidMount logic
+  useEffect(() => {
+    const fetchData = async () => {
+      brandApi.GetLookup().then(r => {
+        updateState({ brands: r.data });
       });
-    else this.setState(s => ({ isLoading: false }));
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (state.productId !== 0)
+        api.GetProduct(state.productId).then(r => {
+          updateState({ isLoading: false, product: r.data });
+        });
+      else updateState({ isLoading: false });
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <React.Fragment>
+      <h1>Product Detail</h1>
+      <hr className="mt-0" />
+
+      {state.isLoading ? renderSpinner() : _renderForm()}
+    </React.Fragment>
+  );
+
+  function _handleUserInputChange(e) {
+    updateState({
+      product: { ...state.product, [e.target.name]: e.target.value }
+    });
+  }
+  function _handleBrandChange(e) {
+    updateState({
+      product: { ...state.product, brandId: Number(e.target.value) }
+    });
   }
 
-  render() {
-    return (
-      <React.Fragment>
-        <h1>Product Detail</h1>
-        <hr className="mt-0" />
-
-        {this.state.isLoading ? this.renderSpinner() : this._renderForm()}
-      </React.Fragment>
-    );
-  }
-
-  _handleUserInputChange = e => {
-    this.setState({
-      product: { ...this.state.product, [e.target.name]: e.target.value }
-    });
-  };
-  _handleBrandChange = e => {
-    this.setState({
-      product: { ...this.state.product, brandId: Number(e.target.value) }
-    });
-  };
-
-  _save = () => {
-    var p = this.state.product;
+  function _save() {
+    var p = state.product;
     var id = p.productId;
 
     if (id === 0) {
       api.InsertProduct(p).then(r => {
         id = r.data;
-        this.setState({
+        updateState({
           productId: id,
-          product: { ...this.state.product, productId: id }
+          product: { ...state.product, productId: id }
         });
-        this.props.OnProductSaved(id);
+        props.OnProductSaved(id);
         console.log('Product inserted');
       });
     } else {
       api
         .UpdateProduct(p)
         .then(r => {
-          this.props.OnProductSaved(id);
+          props.OnProductSaved(id);
           console.log('Product updated');
         })
         .catch(function(error) {
           console.log('Error', error.message);
         });
     }
-  };
+  }
 
-  renderSpinner() {
+  function renderSpinner() {
     return (
       <div>
         <Spinner color="primary" size="sm" />
@@ -104,71 +123,75 @@ export class ProductEditForm extends React.Component<_props, _state> {
     );
   }
 
-  _renderForm() {
+  function _renderForm() {
     return (
-      <Form>
-        {/* <Input hidden vdealue={this.state.productId} /> */}
-        <div className="row mb-2">
-          <div className="col">
-            <Input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Product name"
-              defaultValue={this.state.product.name}
-              onChange={this._handleUserInputChange}
-            />
+      <form onSubmit={handleSubmit(formSubmit)}>
+        <FormGroup>
+          <input
+            type="text"
+            className="form-control"
+            name="name"
+            id="name"
+            placeholder="Product name"
+            defaultValue={state.product.name}
+            onChange={_handleUserInputChange}
+            ref={register({ required: true })}
+          />
+          <div id="nameError" className="invalid-input">
+            {errors.name && 'Product Name is required'}
           </div>
-        </div>
-        <div className="row ">
-          <div className="col-10">{this._renderBrandLookup()}</div>
-          <div className="col-2">
-            <Button onClick={this._save}>
-              {this._renderUpdateButtonText()}
-            </Button>
+        </FormGroup>
+
+        <FormGroup>
+          {_renderBrandLookup()}
+          <div id="brandIdError" className="invalid-input">
+            {errors.brandId && 'Brand Name is required'}
           </div>
-        </div>
-        {/* </FormGroup> */}
-      </Form>
+        </FormGroup>
+        <button id="btnSubmit" className="btn" type="submit">
+          {_renderUpdateButtonText()}
+        </button>
+      </form>
     );
   }
 
-  _renderUpdateButtonText() {
-    return this.state.productId === 0 ? 'Create' : 'Update';
+  function _renderUpdateButtonText() {
+    return state.productId === 0 ? 'Create' : 'Update';
   }
 
-  _renderBrandLookup() {
+  function _renderBrandLookup() {
     return (
-      <Input
-        type="select"
+      <select
+        className="form-control"
         name="brandId"
         id="brandId"
-        onChange={this._handleBrandChange}
-        defaultValue={
-          this.state.product.brandId === 0
-            ? ''
-            : this.state.product.brandId.toString()
-        }
+        onChange={_handleBrandChange}
+        defaultValue={state.product.brandId.toString()}
+        ref={register({ required: true })}
       >
-        {this._renderhiddenOption()}
-        {this._renderLookupOptions()}
-      </Input>
+        {_renderhiddenOption()}
+        {_renderLookupOptions()}
+      </select>
     );
   }
-  _renderhiddenOption() {
-    if (this.state.product.brandId === 0)
+  function _renderhiddenOption() {
+    if (state.product.brandId === 0)
       return (
-        <option key="0" selected disabled hidden>
+        <option key="0" value="" selected disabled hidden>
           Brand Name
         </option>
       );
   }
 
-  _renderLookupOptions() {
-    return this.state.brands.map((item, key) => (
+  function _renderLookupOptions() {
+    return state.brands.map((item, key) => (
       <option key={item.brandId} value={item.brandId.toString()}>
         {item.brandName}
       </option>
     ));
+  }
+
+  function formSubmit(e) {
+    _save();
   }
 }

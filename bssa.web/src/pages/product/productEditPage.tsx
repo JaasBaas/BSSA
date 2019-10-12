@@ -1,9 +1,9 @@
-import React from "react";
-import { Row, Col } from "reactstrap";
-import { ProductEditForm } from "../../controls/product/productEditForm";
-import { RouteComponentProps } from "react-router-dom";
-import { ProductVariationCrud } from "../../controls/product/productVariationList";
-import { ProductTagsCrud } from "../../controls/product/productTagsCrud";
+import React from 'react';
+import { Row, Col } from 'reactstrap';
+import ProductEditForm from '../../controls/product/productEditForm';
+import { RouteComponentProps } from 'react-router-dom';
+import { ProductVariationCrud } from '../../controls/product/productVariationList';
+import { ProductTagsCrud } from '../../controls/product/productTagsCrud';
 
 interface _props {
   productId: number;
@@ -18,7 +18,10 @@ const initialState: _state = { isLoading: false, productId: 0 };
 
 type _params = { id: string };
 
-export class ProductEditPage extends React.Component<_props & RouteComponentProps<_params>, _state> {
+export class ProductEditPage extends React.Component<
+  _props & RouteComponentProps<_params>,
+  _state
+> {
   constructor(props) {
     super(props);
 
@@ -57,19 +60,19 @@ export class ProductEditPage extends React.Component<_props & RouteComponentProp
 
   _renderProductVariations() {
     if (this.state.productId > 0) {
-      return <ProductVariationCrud productId={this.state.productId} />
+      return <ProductVariationCrud productId={this.state.productId} />;
     }
 
-    return (null);
+    return null;
   }
 
   _renderProductTags() {
     // let detail: JSX.Element;
     if (this.state.productId > 0) {
-      return <ProductTagsCrud productId={this.state.productId} />
+      return <ProductTagsCrud productId={this.state.productId} />;
     }
 
-    return (null);
+    return null;
   }
 
   OnProductSaved(productId: number) {

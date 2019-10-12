@@ -14,14 +14,14 @@ interface _props {}
 interface _state {
   testId: number;
   textA: string;
-  optionA: number | null;
+  optionA: number;
 }
 
 export default function TestControl(props: _props) {
   const _initialState: _state = {
     testId: 0,
     textA: '',
-    optionA: null
+    optionA: 0
   };
 
   const [state, setState] = useState(_initialState);
@@ -58,6 +58,7 @@ export default function TestControl(props: _props) {
 
   return (
     <form onSubmit={handleSubmit(formSubmit)}>
+      <h1>Input validation</h1>
       <FormGroup>
         <input
           type="text"
@@ -78,9 +79,10 @@ export default function TestControl(props: _props) {
           className="form-control"
           name="optionA"
           onChange={_handleSelectUserInputChange}
-          defaultValue="" //state.optionA !== null ? state.optionA.toString() : '0'}
+          defaultValue={state.optionA.toString()}
           ref={register({ required: true })}
         >
+          {/* For the hidden option, value should be empty string for validation to work */}
           <option value="">Hidden option</option>
           <option key="1" value="1">
             Option A

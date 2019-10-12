@@ -38,3 +38,8 @@ hr {
    color: red;
    font-size: 80%;
  }
+
+ .btn {
+  /* border:1px solid #007053 !important */
+  background-color:#0070528a ;
+ }
