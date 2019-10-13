@@ -1,38 +1,17 @@
-import React, { FormEventHandler, FormEvent } from 'react';
+import React, { FormEvent } from 'react';
 import * as api from '../../api/productApi';
-import { productTag } from '../../api/viewModel/productTag';
-import {
-  Container,
-  Col,
-  Row,
-  Badge,
-  Input,
-  Button,
-  InputGroup,
-  InputGroupAddon,
-  Form,
-  FormProps,
-  Label
-} from 'reactstrap';
+import { Input, Button, InputGroup, InputGroupAddon, Form } from 'reactstrap';
 import { productTagListItem } from '../../api/viewModel/productTagListItem';
-// import { Table, Row, Col, InputGroup, Input, Button } from "reactstrap";
 
-/**ProductTagsCrud Properties */
 interface _props {
-  /**Product ID route parameter */
   productId: number;
 }
 
-/**ProductTagsCrud State Definition */
 interface _state {
   isBusy: boolean;
   items: productTagListItem[];
   newTag: string;
 }
-
-const spanStyle = {
-  border: '5px solid pink'
-};
 
 export class ProductTagsCrud extends React.Component<_props, _state> {
   _initialState = (props: _props): _state => ({
@@ -72,10 +51,6 @@ export class ProductTagsCrud extends React.Component<_props, _state> {
           key={`tag${tag.tagId}`}
           className="border rounded p-0 pl-2 mr-2 mb-2 d-inline-block"
         >
-          {/* <Input
-            type="checkbox"
-            className="ml-1 mr-1 position-relative"
-          ></Input> */}
           {tag.tagName}
           <Button
             value={tag.tagId.toString()}

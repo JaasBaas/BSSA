@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Input, Button, Form, Spinner, FormGroup } from 'reactstrap';
+import { Spinner, FormGroup } from 'reactstrap';
 import * as api from '../../api/productApi';
 import { brand } from '../../api/viewModel/brand';
 import * as brandApi from '../../api/brandApi';
 import { product } from '../../api/viewModel/product';
 import useForm from 'react-hook-form';
-import { async } from 'q';
 
 /**ProductEditForm Properties */
 interface _props {
@@ -64,8 +63,9 @@ export default function ProductEditForm(props: _props) {
       else updateState({ isLoading: false });
     };
 
+    console.log('Fetching product data...');
     fetchData();
-  }, []);
+  }, [state.productId]);
 
   return (
     <React.Fragment>
@@ -166,7 +166,9 @@ export default function ProductEditForm(props: _props) {
         name="brandId"
         id="brandId"
         onChange={_handleBrandChange}
-        defaultValue={state.product.brandId.toString()}
+        defaultValue={
+          state.product.brandId === 0 ? '' : state.product.brandId.toString()
+        }
         ref={register({ required: true })}
       >
         {_renderhiddenOption()}
@@ -177,7 +179,7 @@ export default function ProductEditForm(props: _props) {
   function _renderhiddenOption() {
     if (state.product.brandId === 0)
       return (
-        <option key="0" value="" selected disabled hidden>
+        <option key="0" value="" disabled hidden>
           Brand Name
         </option>
       );

@@ -1,6 +1,6 @@
 import React from 'react';
 import * as api from '../../api/productApi';
-import { Row, Col, InputGroup, Input, Button, Container } from 'reactstrap';
+import { Row, Col, InputGroup, Input, Container } from 'reactstrap';
 import { productVariationListItem } from '../../api/viewModel/productVariationListItem';
 import { productVariation } from '../../api/viewModel/productVariation';
 import { measureUnitLookup } from '../../api/viewModel/measureUnitLookup';
@@ -90,7 +90,9 @@ export class ProductVariationCrud extends React.Component<_props, _state> {
               onChange={this._handleDescriptionChange}
               defaultValue={this.state.newItem.variationName}
             />
-            <Button onClick={this._createNewProductVariation}>Create</Button>
+            <button onClick={this._createNewProductVariation} className="btn">
+              Create
+            </button>
           </InputGroup>
         </Col>
       </Row>

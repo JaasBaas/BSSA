@@ -1,10 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
-import ProductEditForm from '../../controls/product/productEditForm';
 import TestControl from './testControl';
 import { RouteComponentProps } from 'react-router-dom';
-import { ProductVariationCrud } from '../../controls/product/productVariationList';
-import { ProductTagsCrud } from '../../controls/product/productTagsCrud';
 
 interface _props {
   productId: number;
@@ -30,16 +27,7 @@ export class TestPage extends React.Component<
     s.productId = Number.parseInt(this.props.match.params.id);
 
     this.state = s;
-
-    // this.OnProductSaved = this.OnProductSaved.bind(this);
   }
-
-  // componentDidMount() {
-  //     if (this.props.productId !== 0) {
-  //         var data = api.GetProduct(this.props.productId);
-  //         this.setState(s => ({ isLoading: false, item: data }));
-  //     }
-  // }
 
   render() {
     return (

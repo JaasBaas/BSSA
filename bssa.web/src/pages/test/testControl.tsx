@@ -1,16 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Input, Button, Form, Spinner, FormGroup } from 'reactstrap';
-import * as api from '../../api/productApi';
-import { brand } from '../../api/viewModel/brand';
-import * as brandApi from '../../api/brandApi';
-import { product } from '../../api/viewModel/product';
+import React, { useState } from 'react';
+import { FormGroup } from 'reactstrap';
 import useForm from 'react-hook-form';
-import { async } from 'q';
 
-/**ProductEditForm Properties */
 interface _props {}
 
-/**ProductEditForm State Definition */
 interface _state {
   testId: number;
   textA: string;
@@ -30,7 +23,7 @@ export default function TestControl(props: _props) {
     setState(prevState => {
       return { ...prevState, ...vals };
     });
-  } //
+  }
 
   const { register, handleSubmit, errors, setValue } = useForm();
 
@@ -44,17 +37,6 @@ export default function TestControl(props: _props) {
     if (e.target.value === '') updateState({ [e.target.name]: null });
     else updateState({ [e.target.name]: Number(e.target.value) });
   }
-
-  //componentDidMount logic
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     brandApi.GetLookup().then(r => {
-  //       updateState({ brands: r.data });
-  //     });
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   return (
     <form onSubmit={handleSubmit(formSubmit)}>
