@@ -5,7 +5,7 @@ namespace BSSA.API.DB.Entities
 {
     public partial class MeasureUnit
     {
-        public string MeasureUnitDisplay
+        public string MeasureUnitDisplayDefault
         {
             get
             {
