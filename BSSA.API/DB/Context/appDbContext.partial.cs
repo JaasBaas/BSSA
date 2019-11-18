@@ -91,10 +91,14 @@ namespace BSSA.API.DB.Context
            {
                entity.HasKey(e => e.StoreId);
 
+               entity.Property(e => e.ProvinceId).HasColumnName("ProvinceID");
+
                entity.Property(e => e.ProvinceName)
                    .IsRequired()
                    .HasMaxLength(25)
                    .IsUnicode(false);
+
+               entity.Property(e => e.RetailerId).HasColumnName("RetailerID");
 
                entity.Property(e => e.RetailerName)
                    .IsRequired()
@@ -113,7 +117,6 @@ namespace BSSA.API.DB.Context
                    .HasMaxLength(50)
                    .IsUnicode(false);
            });
-
         }
     }
 }

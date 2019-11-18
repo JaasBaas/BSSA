@@ -13,7 +13,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 //import './styleSheets/bootstrap/lux.min.css';
 
 //import './styleSheets/app.darkly.css';
-import './styleSheets/bootstrap/darkly.min.css';
+import './styleSheets/bootstrap/darkly.css';
 import './styleSheets/bootstrap/darkly.custom.css';
 
 ReactDOM.render(

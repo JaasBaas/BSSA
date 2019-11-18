@@ -43,3 +43,25 @@ hr {
   /* border:1px solid #007053 !important */
   background-color:#0070528a ;
  }
+
+ .card-title{
+  font-size:1.05rem;
+  border-bottom:1px solid #007053 !important;
+  margin-bottom: 0.25rem;
+}
+.tag-btn-delete{ 
+  background-color:transparent ;
+}
+
+.btn-edit{
+  margin: 0;
+  padding: 0.2rem; 
+  justify-self: right;
+  background-color: transparent;
+  border-color: #007053;
+}
+
+.zero{
+  padding:0;
+  margin: 0;
+}

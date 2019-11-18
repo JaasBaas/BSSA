@@ -26,19 +26,12 @@ export class ProductEditPage extends React.Component<
     super(props);
 
     var s = initialState;
-    s.productId = Number.parseInt(this.props.match.params.id);
+    s.productId = this.props.productId;
 
     this.state = s;
 
     // this.OnProductSaved = this.OnProductSaved.bind(this);
   }
-
-  // componentDidMount() {
-  //     if (this.props.productId !== 0) {
-  //         var data = api.GetProduct(this.props.productId);
-  //         this.setState(s => ({ isLoading: false, item: data }));
-  //     }
-  // }
 
   render() {
     return (

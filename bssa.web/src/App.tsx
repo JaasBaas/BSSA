@@ -1,22 +1,16 @@
 import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import { Route } from 'react-router';
+import { useRoutes } from 'hookrouter';
 import { Layout } from './app/Layout';
-import { Home } from './app/Home';
-import { ProductSearch } from './pages/product/productSearch';
-import { ProductEditPage } from './pages/product/productEditPage';
-import { TestPage } from './pages/test/testPage';
+import routes from './app/routes';
 
 const App: React.FC = () => {
+  const routeResult = useRoutes(routes);
+
   return (
     <div className="App">
-      <Layout>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/Product/Search" component={ProductSearch} />
-        <Route exact path="/Product/Edit/:id" component={ProductEditPage} />
-        <Route exact path="/TestPage" component={TestPage} />
-      </Layout>
+      <Layout>{routeResult}</Layout>
     </div>
   );
 };

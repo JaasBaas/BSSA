@@ -40,9 +40,7 @@ export class NavMenu extends React.Component<NavMenuProps, NavMenuState> {
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3">
           <Container>
-            <NavbarBrand tag={Link} to="/">
-              Bargain Shopper
-            </NavbarBrand>
+            <NavbarBrand href="/">Bargain Shopper</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse
               className="d-sm-inline-flex flex-sm-row-reverse"
@@ -51,19 +49,17 @@ export class NavMenu extends React.Component<NavMenuProps, NavMenuState> {
             >
               <ul className="navbar-nav flex-grow">
                 <NavItem>
-                  <NavLink tag={Link} to="/">
-                    Home
-                  </NavLink>
+                  <NavLink href="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to="/Product/Search">
-                    Products
-                  </NavLink>
+                  {/* <NavLink tag={Link} to="/Product/Search"> */}
+                  <NavLink href="/Product/Search">Products</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} to="/TestPage">
-                    Test
-                  </NavLink>
+                  <NavLink href="/TestPage">Test</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/catalogue/edit/2">New Catalogue</NavLink>
                 </NavItem>
               </ul>
             </Collapse>

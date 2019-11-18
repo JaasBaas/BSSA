@@ -1,7 +1,9 @@
 import React from 'react';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Input } from 'reactstrap';
 import TestControl from './testControl';
 import { RouteComponentProps } from 'react-router-dom';
+// import * as Button from '../../controls/uiControls/button';
+import * as ui from '../../controls/uiControls/uiControls';
 
 interface _props {
   productId: number;
@@ -24,7 +26,7 @@ export class TestPage extends React.Component<
     super(props);
 
     var s = initialState;
-    s.productId = Number.parseInt(this.props.match.params.id);
+    s.productId = this.props.productId;
 
     this.state = s;
   }
@@ -33,8 +35,25 @@ export class TestPage extends React.Component<
     return (
       <React.Fragment>
         <Row>
-          <Col sm="12" md="6" lg="4">
+          <Col sm="4">
             <TestControl></TestControl>
+          </Col>
+          <Col sm="4">
+            <h1>Buttons</h1>
+            <ui.Button value="Button" />
+            <ui.ButtonWarning value="Warning" />
+            <ui.ButtonDanger value="Danger" />
+            <ui.ButtonSuccess value="Success" />
+            <ui.ButtonDanger disabled value="Disabled" />
+            <ui.ButtonDelete />
+          </Col>
+          <Col sm="4">
+            <h1>Tags</h1>
+            <ui.Tag
+              deleteButtonVisible="true"
+              checkBoxVisible="true"
+              value="Default Tag"
+            />
           </Col>
         </Row>
       </React.Fragment>

@@ -60,7 +60,10 @@ export default function ProductEditForm(props: _props) {
         api.GetProduct(state.productId).then(r => {
           updateState({ isLoading: false, product: r.data });
         });
-      else updateState({ isLoading: false });
+      else {
+        updateState({ isLoading: false });
+        console.log('fetch product data...isLoading is false');
+      }
     };
 
     console.log('Fetching product data...');
