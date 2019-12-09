@@ -1,5 +1,44 @@
-h1,
-.h1 {
+:root{
+  --textColorPrimary:yellow;
+  --textColorSecondary:white;
+  --textColorDisabled:red;
+  --pageBackgroundColor:#131312;
+  --inputControlBackgroundColor:#393a3a;
+  --boxShadow:0 0 0 0.2rem rgba(255, 255, 0, 0.25);
+  --highlighted:rgba(255, 255, 0, 0.13);
+}
+
+body {
+  color: var(--textColorSecondary);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--textColorPrimary);
+}
+
+a {
+  color: var(--textColorPrimary);
+}
+a:hover {
+  color: var(--textColorPrimary);
+  text-decoration: underline!important;
+}
+
+.form-control {
+  background-color:var(--inputControlBackgroundColor);
+  color: var(--textColorSecondary);
+}
+
+.form-control:focus {
+  background-color:var(--inputControlBackgroundColor);
+  color: var(--textColorSecondary);
+  border-color:transparent;
+  box-shadow: var(--boxShadow);
+}
+
+
+
+h1,.h1 {
  font-size:1.17rem!important;
 }
 h2,
@@ -12,26 +51,26 @@ h3,
 }
 
 hr {
-  color: #007053!important;
-  background-color: #007053!important;
+  color: var(--textColorPrimary)!important;
+  background-color: var(--textColorPrimary)!important;
   height: 1px!important;
   margin-bottom: 0.5rem !important
 }
 
 .border {
-  border:1px solid #007053 !important
+  border:1px solid var(--textColorPrimary) !important
  }
  .border-top {
-  border-top:1px solid #007053 !important
+  border-top:1px solid var(--textColorPrimary) !important
  }
  .border-right {
-  border-right:1px solid #007053 !important
+  border-right:1px solid var(--textColorPrimary) !important
  }
  .border-bottom {
-  border-bottom:1px solid #007053 !important;
+  border-bottom:1px solid var(--textColorPrimary) !important;
  }
  .border-left {
-  border-left:1px solid #007053 !important
+  border-left:1px solid var(--textColorPrimary) !important;
  }
  
  .invalid-input{
@@ -41,8 +80,37 @@ hr {
 
  .btn {
   /* border:1px solid #007053 !important */
-  background-color:#0070528a ;
+  background-color:transparent ;
  }
+
+ .btn-primary{
+  border-color:var(--textColorPrimary) ;
+ }
+ .btn-primary:hover{
+  background-color:var(--highlighted);
+  border-color:var(--textColorPrimary) ;
+ }
+ .btn-primary:focus, .btn-primary.focus{
+  box-shadow:none;
+ }
+
+ .btn-warning:hover{
+background-color: rgba(243, 157, 18, 0.25);
+ }
+ .btn-warning:focus{
+  background-color: rgba(243, 157, 18, 0.25);
+  box-shadow:none;
+}
+
+
+.btn-danger:hover{
+  background-color: rgba(231, 77, 60, 0.25);
+   }
+   .btn-danger:focus{
+    background-color: rgba(231, 77, 60, 0.25);
+    box-shadow:none;
+  }
+  
 
  .card-title{
   font-size:1.05rem;
@@ -65,3 +133,12 @@ hr {
   padding:0;
   margin: 0;
 }
+/*
+.css-2b097c-container{
+  color: green!important;
+  background-color: black;
+}
+.react-select__multi-value__label{
+  color: green !important;
+}
+*/
