@@ -65,7 +65,7 @@ export default function TestControl(props: _props) {
           ref={register({ required: true })}
         >
           {/* For the hidden option, value should be empty string for validation to work */}
-          <option value="">Hidden option</option>
+          <option value="">Hidden option </option>
           <option key="1" value="1">
             Option A
           </option>

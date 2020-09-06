@@ -3,6 +3,8 @@ import { Row, Col, Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import { RouteComponentProps } from 'react-router-dom';
 import { func } from 'prop-types';
 import * as ui from '../../controls/uiControls/uiControls';
+import Select from 'react-select';
+import { lookup } from '../../api/viewModel/lookup';
 
 interface _props {
   specialId: number;
@@ -11,7 +13,9 @@ interface _props {
 interface _state {
   isLoading: boolean;
   specialId: number;
-  retailers: number[];
+  selectedRetailers: number[];
+  availableRetailers: lookup[];
+  selectedCardNo: number;
 }
 
 type _params = { id: string };
@@ -20,7 +24,9 @@ export default function CatalogueEditPage(props: _props) {
   const initialState: _state = {
     isLoading: false,
     specialId: props.specialId,
-    retailers: []
+    selectedRetailers: [],
+    availableRetailers: [],
+    selectedCardNo: 1
   };
   const [state, setState] = useState(initialState);
   function updateState(vals) {
@@ -43,7 +49,7 @@ export default function CatalogueEditPage(props: _props) {
         </Col>
       </Row>
       <Row>
-        <Col sm="12">Editing area for special {state.specialId}</Col>
+        <Col sm="12">{renderRetailerCrud()}</Col>
       </Row>
     </React.Fragment>
   );
@@ -52,12 +58,31 @@ export default function CatalogueEditPage(props: _props) {
     return (
       <Card onClick={retailerCardEditClick}>
         <CardBody>
-          <CardTitle>Retailers</CardTitle>
+          <CardTitle>Retailer(s)</CardTitle>
           <CardText>Checkers and Checkers Hyper</CardText>
         </CardBody>
       </Card>
     );
   }
+
+  function retailerCardEditClick(e) {}
+
+  function renderRetailerCrud() {
+    return (
+      <Card>
+        <CardBody>
+          <CardTitle>Retailer(s)</CardTitle>
+          <CardText>
+            <Select
+              value={state.selectedRetailers}
+              options={state.availableRetailers}
+            />
+          </CardText>
+        </CardBody>
+      </Card>
+    );
+  }
+
   function renderStoreCard() {
     return (
       <Card>
@@ -78,6 +103,4 @@ export default function CatalogueEditPage(props: _props) {
       </Card>
     );
   }
-
-  function retailerCardEditClick(e) {}
 }

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Row, Col, Input } from 'reactstrap';
 import TestControl from './testControl';
+import ReactSelects from './reactSelects';
 import { RouteComponentProps } from 'react-router-dom';
 // import * as Button from '../../controls/uiControls/button';
 import * as ui from '../../controls/uiControls/uiControls';
+import Select from 'react-select';
 
 interface _props {
   productId: number;
@@ -21,7 +23,7 @@ type _params = { id: string };
 export class TestPage extends React.Component<
   _props & RouteComponentProps<_params>,
   _state
-> {
+  > {
   constructor(props) {
     super(props);
 
@@ -30,6 +32,14 @@ export class TestPage extends React.Component<
 
     this.state = s;
   }
+
+  _provinces = [
+    { value: '1', label: 'Gauteng' },
+    { value: '2', label: 'Eastern Cape' },
+    { value: '3', label: 'Western Cape' },
+    { value: '4', label: 'Kwa-Zulu Natal' },
+    { value: '5', label: 'Mpumalanga' }
+  ];
 
   render() {
     return (
@@ -54,6 +64,16 @@ export class TestPage extends React.Component<
               checkBoxVisible="true"
               value="Default Tag"
             />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <ReactSelects options={this._provinces} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <div>This is my option text</div>
           </Col>
         </Row>
       </React.Fragment>
