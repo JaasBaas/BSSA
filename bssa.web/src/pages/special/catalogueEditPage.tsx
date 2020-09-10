@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Row, Col, Card, CardBody, CardTitle, CardText } from 'reactstrap';
-import { RouteComponentProps } from 'react-router-dom';
-import { func } from 'prop-types';
-import * as ui from '../../controls/uiControls/uiControls';
+// import { RouteComponentProps } from 'react-router-dom';
+// import { func } from 'prop-types';
+// import * as ui from '../../controls/uiControls/uiControls';
 import Select from 'react-select';
 import { lookup } from '../../api/viewModel/lookup';
 
@@ -65,7 +65,7 @@ export default function CatalogueEditPage(props: _props) {
     );
   }
 
-  function retailerCardEditClick(e) {}
+  function retailerCardEditClick(e) { }
 
   function renderRetailerCrud() {
     return (

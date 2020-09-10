@@ -58,8 +58,7 @@ export class ProductTagsCrud extends React.Component<_props, _state> {
             size="sm"
             color=""
           >
-            <img
-              src="/icons/icons8-delete-bin-red-32.png"
+            <img src="/icons/icons8-delete-bin-red-32.png"
               alt="Delete"
               width="20"
             />

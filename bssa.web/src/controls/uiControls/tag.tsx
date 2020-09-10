@@ -1,11 +1,11 @@
 import React, { Children } from 'react';
-import * as Button from './button';
+// import * as Button from './button';
 
 interface TagProps {
   value: string;
   onDeleteClick:
-    | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
-    | undefined;
+  | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+  | undefined;
   style: string;
   type: any;
   size: string;
@@ -15,8 +15,8 @@ interface TagProps {
   deleteButtonVisible: boolean;
   checkBoxVisible: boolean;
   onCheckBoxChange:
-    | ((event: React.ChangeEvent<HTMLInputElement>) => void)
-    | undefined;
+  | ((event: React.ChangeEvent<HTMLInputElement>) => void)
+  | undefined;
 }
 
 function BaseTag(props: TagProps) {
@@ -55,7 +55,12 @@ function BaseTag(props: TagProps) {
   );
 }
 
-export const Tag = props => <BaseTag {...props}></BaseTag>;
-export const TagDelete = props => (
-  <BaseTag {...props} deleteButtonVisible={true}></BaseTag>
-);
+export const Tag = props => {
+  return <BaseTag {...props}></BaseTag>;
+};
+
+export const TagDelete = props => {
+  return (
+    <BaseTag {...props} deleteButtonVisible={true}></BaseTag>
+  );
+};

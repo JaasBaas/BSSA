@@ -9,9 +9,8 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
-interface NavMenuProps {}
+interface NavMenuProps { }
 
 interface NavMenuState {
   collapsed: Boolean;
