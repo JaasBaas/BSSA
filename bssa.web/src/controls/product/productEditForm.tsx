@@ -4,7 +4,7 @@ import * as api from '../../api/productApi';
 import { brand } from '../../api/viewModel/brand';
 import * as brandApi from '../../api/brandApi';
 import { product } from '../../api/viewModel/product';
-import useForm from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 /**ProductEditForm Properties */
 interface _props {
@@ -111,7 +111,7 @@ export default function ProductEditForm(props: _props) {
           props.OnProductSaved(id);
           console.log('Product updated');
         })
-        .catch(function(error) {
+        .catch(function (error) {
           console.log('Error', error.message);
         });
     }

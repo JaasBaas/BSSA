@@ -10,7 +10,7 @@
       "reAttach": true,
       "name": "Firefox Debugger",
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}/bssa.web"
+      "webRoot": "${workspaceFolder}/bssa.web/"
     },
     {
       "type": "chrome",
