@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Input } from 'reactstrap';
 import TestControl from './testControl';
-import ReactSelects from './reactSelects';
+import ReactSelects from '../../controls/uiControls/AsyncSelect';
 import { RouteComponentProps } from 'react-router-dom';
 // import * as Button from '../../controls/uiControls/button';
 import * as ui from '../../controls/uiControls/uiControls';
@@ -24,7 +24,7 @@ export class TestPage extends React.Component<
   _props & RouteComponentProps<_params>,
   _state
   > {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
 
     var s = initialState;
@@ -63,12 +63,18 @@ export class TestPage extends React.Component<
               deleteButtonVisible="true"
               checkBoxVisible="true"
               value="Default Tag"
+              onDeleteClick={this.tagDeleteClick}
             />
           </Col>
         </Row>
         <Row>
           <Col>
-            <ReactSelects options={this._provinces} />
+            {/* <ReactSelects options={this._provinces} onSelectionChange={this.provinceMultiSelectChange} /> */}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <div>This is my option text</div>
           </Col>
         </Row>
         <Row>
@@ -79,4 +85,12 @@ export class TestPage extends React.Component<
       </React.Fragment>
     );
   }
+
+  tagDeleteClick = (e: any) => {
+    alert('delete button clicked ');
+  }
+
+  provinceMultiSelectChange = (any: any) => {
+
+  };
 }

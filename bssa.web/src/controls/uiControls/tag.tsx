@@ -64,3 +64,10 @@ export const TagDelete = props => {
     <BaseTag {...props} deleteButtonVisible={true}></BaseTag>
   );
 };
+
+export const TagDeleteSmall = props => {
+  return (
+    <BaseTag {...props} deleteButtonVisible={true}></BaseTag>
+  );
+};
+

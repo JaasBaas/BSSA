@@ -7,10 +7,10 @@ namespace BSSA.API.ViewModel
     public partial class Lookup
     {
         [Key]
-        [Required()]
-        public int Id { get; set; }
+        [Required(AllowEmptyStrings=false)]
+        public string Value { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        public string Value { get; set; }
+        public string Label { get; set; }
     }
 }

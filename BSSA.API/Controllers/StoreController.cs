@@ -32,6 +32,71 @@ namespace BSSA.API.Controllers
             return _mapper.Map<List<vm.Lookup>>(data);
         }
 
+        ///Get the stores linked to a special
+        [HttpGet("SpecialStores/{specialId}")]
+        public async Task<List<vm.StoreIndex>> GetSpecialStores(int specialId)
+        {
+            var data = await _ds.SelectSpecialStores(specialId);
+            return _mapper.Map<List<vm.StoreIndex>>(data);
+        }
+        ///Get the stores linked to a special
+        [HttpGet("SpecialStoresLookupDetail/{specialId}")]
+        public async Task<List<vm.StoreIndex>> GetSpecialStoresLookupDetail(int specialId)
+        {
+            var data = await _ds.SelectSpecialStores(specialId);
+            /*
+            var result = (from d in data
+                          group d by new { d.ProvinceId, d.ProvinceName } into p
+                          select new vm.LookupDetail()
+                          {
+                              Id = p.Key.ProvinceId,
+                              Value = p.Key.ProvinceName,
+                              Children = _mapper.Map<List<vm.Lookup>>(data.Where(v => v.ProvinceId == p.Key.ProvinceId))
+                          }).ToList();
+            return result;
+            */
+            return _mapper.Map<List<vm.StoreIndex>>(data);
+        }
+
+        ///Get the stores linked to a special
+        [HttpGet("SearchRetailerStores/{retailerCsv}/{searchCriteria}")]
+        public async Task<List<vm.StoreIndex>> SearchRetailerStores(string retailerCsv, string searchCriteria)
+        {
+            //Search criteria must contain at least 3 characters
+            if (searchCriteria.Length < 3)
+                return null;
+
+            //No more than 3 retailers allowed in query
+            var retailers = (from r in retailerCsv.Split(',')
+                             select int.Parse(r)).Take(3).ToArray();
+
+            var data = await _ds.SearchRetailerStores(retailers, searchCriteria);
+            return _mapper.Map<List<vm.StoreIndex>>(data);
+        }
+
+        [HttpPost("InsertSpecialStore/{specialId}/{storeId}")]
+        public async Task<vm.StoreIndex> InsertSpecialStore(int specialId, int storeId)
+        {
+            var data = await _ds.InsertSpecialStore(specialId, storeId);
+            if (data != null)
+            {
+                var result = _ds.SelectStoreIndex(storeId);
+                return _mapper.Map<vm.StoreIndex>(result);
+            }
+
+            return null;
+        }
+
+        [HttpDelete("DeleteSpecialStore/{specialId}/{storeId}")]
+        public async Task<bool> DeleteSpecialStore(int specialId, int storeId)
+        {
+            var data = await _ds.SelectSpecialStore(specialId, storeId);
+            if (data != null)
+                return await _ds.DeleteSpecialStore(data);
+
+            return false;
+        }
+
         /*
         [HttpGet("TownLookup/{provinceId}")]
         public async Task<List<vm.TownLookup>> GetTownLookup(int provinceId)

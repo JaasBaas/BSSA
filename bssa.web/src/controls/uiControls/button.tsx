@@ -26,8 +26,8 @@ export const ControlSize = {
 export interface ButtonProps {
   value: string;
   onClick:
-    | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
-    | undefined;
+  | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+  | undefined;
   style: string;
   type: any;
   size: string;
@@ -83,7 +83,7 @@ export const ButtonDelete = props => (
 export const ButtonEdit = props => (
   <BaseButton
     {...props}
-    style={ControlStyle.Danger}
+    style={ControlStyle.Primary}
     value=""
     classNames="btn-edit"
   >
@@ -93,5 +93,5 @@ export const ButtonEdit = props => (
       width="20"
       sizes={ControlSize.Small}
     />
-  </BaseButton>
+  </BaseButton >
 );

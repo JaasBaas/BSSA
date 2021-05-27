@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { FormGroup } from 'reactstrap';
-import useForm from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
-interface _props {}
+interface _props { }
 
 interface _state {
   testId: number;
@@ -30,9 +30,10 @@ export default function TestControl(props: _props) {
   function _handleTextUserInputChange(e) {
     updateState({ [e.target.name]: e.target.value });
   }
+
   function _handleSelectUserInputChange(e) {
     //for select controls, call the setValue function
-    setValue(e.target.name, Number(e.target.value), true);
+    //setValue(e.target.name, Number(e.target.value), true);
 
     if (e.target.value === '') updateState({ [e.target.name]: null });
     else updateState({ [e.target.name]: Number(e.target.value) });
@@ -84,5 +85,5 @@ export default function TestControl(props: _props) {
     </form>
   );
 
-  function formSubmit(e) {}
+  function formSubmit(e) { }
 }

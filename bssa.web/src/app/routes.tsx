@@ -5,6 +5,7 @@ import { Home } from './Home';
 import { ProductSearch } from '../pages/product/productSearch';
 import { ProductEditPage } from '../pages/product/productEditPage';
 import { TestPage } from '../pages/test/testPage';
+import TestSelectPage from '../pages/test/TestSelectPage';
 import CatalogueEditPage from '../pages/special/catalogueEditPage';
 
 const routes: HookRouter.RouteObject = {
@@ -15,7 +16,8 @@ const routes: HookRouter.RouteObject = {
   '/Product/Search': () => <ProductSearch />,
   '/Product/Edit/:id': ({ id }) => <ProductEditPage productId={id} />,
 
-  '/TestPage': () => <TestPage />
+  // '/TestPage': () => <TestPage />
+  '/TestPage': () => <TestSelectPage />
 };
 
 export default routes;

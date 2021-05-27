@@ -27,21 +27,25 @@ namespace BSSA.API.AutoMapper
 
             CreateMap<db.Province, vm.Province>().ReverseMap();
             CreateMap<db.Province, vm.Lookup>()
-                .ForMember(d => d.Id, o => o.MapFrom(s => s.ProvinceId))
-                .ForMember(d => d.Value, o => o.MapFrom(s => s.ProvinceName));
+                .ForMember(d => d.Value, o => o.MapFrom(s => s.ProvinceId.ToString()))
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.ProvinceName));
 
             CreateMap<db.Town, vm.Town>().ReverseMap();
             CreateMap<db.Town, vm.Lookup>()
-                .ForMember(d => d.Id, o => o.MapFrom(s => s.TownId))
-                .ForMember(d => d.Value, o => o.MapFrom(s => s.TownName));
+                .ForMember(d => d.Value, o => o.MapFrom(s => s.TownId.ToString()))
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.TownName));
 
             CreateMap<db.Retailer, vm.Lookup>()
-                .ForMember(d => d.Id, o => o.MapFrom(s => s.RetailerId))
-                .ForMember(d => d.Value, o => o.MapFrom(s => s.RetailerName));
+                .ForMember(d => d.Value, o => o.MapFrom(s => s.RetailerId.ToString()))
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.RetailerName));
 
             CreateMap<db.StoreIndex, vm.Lookup>()
-                .ForMember(d => d.Id, o => o.MapFrom(s => s.StoreId))
-                .ForMember(d => d.Value, o => o.MapFrom(s => s.StoreName));
+                .ForMember(d => d.Value, o => o.MapFrom(s => s.StoreId.ToString()))
+                .ForMember(d => d.Label, o => o.MapFrom(s => s.StoreName));
+
+            CreateMap<db.StoreIndex, vm.StoreIndex>();
+
+
         }
     }
 }

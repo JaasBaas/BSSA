@@ -10,14 +10,17 @@
       "reAttach": true,
       "name": "Firefox Debugger",
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}/bssa.web/"
+      "webRoot": "${workspaceFolder}/bssa.web/",
+      "skipFiles": [
+        "**/node_modules/**"
+      ]
     },
     {
       "type": "chrome",
       "request": "launch",
       "name": "Launch Chrome",
       "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}/bssa.ui"
+      "webRoot": "${workspaceFolder}/bssa.web"
     },
     {
       "name": "Launch API",

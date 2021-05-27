@@ -1,11 +1,21 @@
+import { time } from 'console';
 import React, { useState } from 'react';
-import { FormGroup } from 'reactstrap';
-import useForm from 'react-hook-form';
+// import { FormGroup } from 'reactstrap';
+import { useForm } from 'react-hook-form';
 import Select, { StylesConfig } from 'react-select';
-import { SSL_OP_CRYPTOPRO_TLSEXT_BUG } from 'constants';
+import ReactAsyncSelect from 'react-select/async';
+import { setTimeout } from 'timers';
+import * as api from '../../api/storeApi';
 
 interface _props {
-  options: any;
+  // options: any;
+  // onSelectionChange: any;
+  loadOptions: any;
+  optionLabel: any;
+  optionValue: any;
+  onInputChange: any;
+  id: string;
+  //options: any;
 }
 
 interface _state {
@@ -54,7 +64,7 @@ const customStyles: StylesConfig = {
   })
 };
 
-export default function TestControl(props: _props) {
+export default function AsyncSelect(props: _props) {
 
   const _initialState: _state = {
     selectedItem: '',
@@ -74,6 +84,7 @@ export default function TestControl(props: _props) {
   function _handleTextUserInputChange(e) {
     updateState({ [e.target.name]: e.target.value });
   }
+  /*
   function _handleSelectUserInputChange(e) {
     //for select controls, call the setValue function
     setValue(e.target.name, Number(e.target.value), true);
@@ -81,15 +92,40 @@ export default function TestControl(props: _props) {
     if (e.target.value === '') updateState({ [e.target.name]: null });
     else updateState({ [e.target.name]: Number(e.target.value) });
   }
+  */
+  const loadOptions = async (inputValue) => {
+    console.log(`Async Select Search Criteria = ${inputValue}`);
+    if (!inputValue || inputValue.length < 3)
+      return [];
+
+    const timer = setTimeout(() => props.loadOptions, 1000);
+    return () => clearTimeout(timer);
+    // console.log(`Searching retailer stores ${inputValue}`);
+    // let response = await api.SearchRetailerStores(state.retailerIds, inputValue);
+    // return response.data;
+  }
+  // const optionValue = (option: storeIndex) => option.storeId.toString();
+  // const optionLabel = (option: storeIndex) => option.storeName;
 
   return (
     <React.Fragment>
-      <Select
+      {/* <Select
         styles={customStyles}
         options={props.options}
         hideSelectedOptions
         isMulti={true}
         closeMenuOnScroll={false}
+        onChange={props.onSelectionChange}
+      /> */}
+      <ReactAsyncSelect
+        id={props.id}
+        loadOptions={loadOptions}
+      //cacheOptions
+
+      // options={props.options}
+      //onInputChange={props.onInputChange}
+      // getOptionLabel={props.optionLabel} 
+      // getOptionValue={props.optionValue}
       />
     </React.Fragment>
   );
